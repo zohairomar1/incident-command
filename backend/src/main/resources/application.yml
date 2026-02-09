@@ -1,0 +1,65 @@
+spring:
+  application:
+    name: incident-command
+
+  profiles:
+    active: dev
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+jwt:
+  secret: Y2hhbmdlLXRoaXMtaW4tcHJvZHVjdGlvbi10by1hLXNlY3VyZS1yYW5kb20ta2V5LXRoYXQtaXMtYXQtbGVhc3QtMjU2LWJpdHM=
+  expiration-ms: 86400000
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+  datasource:
+    url: jdbc:h2:mem:incidentdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  flyway:
+    locations: classpath:db/migration
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+
+server:
+  port: 8080
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/incidentdb
+    driver-class-name: org.postgresql.Driver
+    username: incident_user
+    password: incident_pass
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+
+server:
+  port: 8080

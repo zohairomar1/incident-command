@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: incident-db
+    environment:
+      POSTGRES_DB: incidentdb
+      POSTGRES_USER: incident_user
+      POSTGRES_PASSWORD: incident_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U incident_user -d incidentdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: .
+    container_name: incident-api
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/incidentdb
+      SPRING_DATASOURCE_USERNAME: incident_user
+      SPRING_DATASOURCE_PASSWORD: incident_pass
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: incident-jenkins
+    ports:
+      - "8081:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_data:/var/jenkins_home
+
+volumes:
+  postgres_data:
+  jenkins_data:
