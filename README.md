@@ -6,11 +6,13 @@ A full-stack incident management platform with a Spring Boot REST API, React web
 
 ### Web Dashboard
 <p align="center">
-  <img src="public/web-dashboard.png" width="800" alt="Web Dashboard">
+  <img src="public/web-dashboard.png" width="900" alt="Web Dashboard">
 </p>
 <p align="center">
-  <img src="public/web-incident-list.png" width="400" alt="Web Incident List">
-  <img src="public/web-incident-detail.png" width="400" alt="Web Incident Detail">
+  <img src="public/web-incident-list.png" width="900" alt="Web Incident List">
+</p>
+<p align="center">
+  <img src="public/web-incident-detail.png" width="900" alt="Web Incident Detail">
 </p>
 
 ### Mobile App
