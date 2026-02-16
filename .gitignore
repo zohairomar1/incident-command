@@ -1,0 +1,15 @@
+.DS_Store
+*.iml
+.idea/
+*.class
+*.jar
+*.log
+node_modules/
+dist/
+build/
+.gradle/
+local.properties
+.env
+.claude/
+.vscode/
+donotpush-plan
